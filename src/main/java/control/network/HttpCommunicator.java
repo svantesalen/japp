@@ -9,22 +9,13 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import control.network.exceptions.NetworkException;
+
 public class HttpCommunicator {
 
 	private  static Logger log = LogManager.getLogger(HttpCommunicator.class);
 
-//	public static String sendLogin(String relativePath) {
-//		String requestUrl = UrlBuild.buildLoginUrl(relativePath);
-////		Paths.REQUEST_TOKEN
-//		return send(requestUrl);
-//	}
-//
-//	public static String sendLogin(String relativePath, String requestToken) {
-//		String requestUrl = UrlBuild.buildLoginUrl(relativePath, "request_token", requestToken);
-//		return send(requestUrl);
-//	}
-
-	public static String send(String requestUrl) {
+	public static String send(String requestUrl) throws NetworkException {
 		log.info("Trying this URL:"+requestUrl);
 		Client client = ClientBuilder.newClient();
 		Response response;
@@ -43,6 +34,7 @@ public class HttpCommunicator {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Could not send request to server.", "ERROR", JOptionPane.ERROR_MESSAGE);
 			log.error("Exception at contacting server.", e);
+			throw new NetworkException();
 		} finally {
 			try {
 				client.close(); 
@@ -50,9 +42,7 @@ public class HttpCommunicator {
 				log.error("Error at close connection.", e);
 			}
 		}
-		return "";
 	}
 
-	
-	
+		
 }

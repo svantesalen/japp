@@ -65,16 +65,4 @@ public class UrlBuild {
 	public static String getLoginVerificationUrl(String token) {
 		return HOST_FOR_USER_LOGIN_VERIFICATION_URL+token;
 	}
-
-	
-	// OLD
-	
-//	public static String buildLoginUrl(String relativePath) {
-//		return HOST_URL+relativePath+API_KEY_PARAM;
-//	}
-//
-//	public static String buildLoginUrl(String relativePath, String key, String value) {
-//		return HOST_DEBUG_URL+relativePath+API_KEY_PARAM+"&"+key+"="+value;
-//	}
-	
 }
