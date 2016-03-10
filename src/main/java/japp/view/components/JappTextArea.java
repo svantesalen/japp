@@ -80,7 +80,6 @@ public class JappTextArea  {
 	}
 
 	public void clear() {
-		log.debug("#######################CLEAR##########");
 		textPane.setText(" ");		
 		textPane.setText("");		
 	}

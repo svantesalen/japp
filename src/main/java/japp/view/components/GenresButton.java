@@ -41,7 +41,7 @@ public class GenresButton extends FocusableButton { // NOSONAR
 	} 
 
 	private void onClick() {
-		Controller.getInstance().onGenresButtonClick();
+		Controller.getInstance().onUserActionButtonClick();
 	}
 
 }

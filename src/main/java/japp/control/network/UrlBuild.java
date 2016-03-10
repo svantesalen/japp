@@ -55,12 +55,12 @@ public class UrlBuild {
 		GENRE("genre/","/movies"),
 		MOVIE("movie/", "");
 		
-		String relativePath;
-		String relativePath2;
-		Paths(String relativePath) {
+		private String relativePath;
+		private String relativePath2;
+		private Paths(String relativePath) {
 			this.relativePath = relativePath;
 		}
-		Paths(String relativePath, String relativePath2) {
+		private Paths(String relativePath, String relativePath2) {
 			this.relativePath = relativePath;
 			this.relativePath2 = relativePath2;
 		}

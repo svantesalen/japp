@@ -56,18 +56,6 @@ public class SessionLess {
 		String jsonString = HttpCommunicator.send(requestUrl);
 		return new Genre(jsonString);
 	}
-
-//	/**
-//	 * Fetch movie details.
-//	 * @param id
-//	 * @return
-//	 * @throws NetworkException
-//	 */
-//	public Movie fetchMovieDetails(String id) throws NetworkException {
-//		String requestUrl = Paths.GENRE.buildUrl(id);
-//		String jsonString = HttpCommunicator.send(requestUrl);
-//		return new Movie(jsonString);
-//	}
 }
 
 

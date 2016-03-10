@@ -43,7 +43,7 @@ public class JsonHelper {
 			String value = castToString(obj.get(key));
 			log.debug(key+"="+value);
 			return value;
-		} catch (JSONException e) {
+		} catch (JSONException e) { // NOSONAR - not logging exception since too much output.
 			log.error("Could not read key="+key);
 			return "";
 		}

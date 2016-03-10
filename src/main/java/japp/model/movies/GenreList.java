@@ -12,10 +12,16 @@ import org.json.JSONObject;
 
 import japp.control.json.JsonHelper;
 
+/**
+ * All genres on TMDb.
+ * 
+ * @author svante
+ *
+ */
 public class GenreList {
 
-	private  static Logger log = LogManager.getLogger(GenreList.class);
 	private static final String GENRES_KEY = "genres";
+	private  static Logger log = LogManager.getLogger(GenreList.class);
 	
 	Map<String, String> genres = new HashMap<>();
 
@@ -53,7 +59,7 @@ public class GenreList {
 		return genres;
 	}
 
-	// TODO: maybe exception instead
+	// TODO: maybe exception instead? And maybe keep a separate list as for movies. See JappListPanel.
 	public String getIdFromName(String name) {
 		for(Entry<String, String> entry: genres.entrySet()) {
 			if(entry.getValue().trim().equals(name.trim())) {
@@ -63,7 +69,6 @@ public class GenreList {
 		log.error("No genre found with name: "+name);
 		return "";
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -76,67 +81,3 @@ public class GenreList {
 		return sb.toString();
 	}
 }
-//get genres: http://api.themoviedb.org/3/genre/movie/list?api_key=8c92bdaa90b74ce495f535d3bb9849bb
-/*{
-  "genres": [{
-    "id": 28,
-    "name": "Action"
-  }, {
-    "id": 12,
-    "name": "Adventure"
-  }, {
-    "id": 16,
-    "name": "Animation"
-  }, {
-    "id": 35,
-    "name": "Comedy"
-  }, {
-    "id": 80,
-    "name": "Crime"
-  }, {
-    "id": 99,
-    "name": "Documentary"
-  }, {
-    "id": 18,
-    "name": "Drama"
-  }, {
-    "id": 10751,
-    "name": "Family"
-  }, {
-    "id": 14,
-    "name": "Fantasy"
-  }, {
-    "id": 10769,
-    "name": "Foreign"
-  }, {
-    "id": 36,
-    "name": "History"
-  }, {
-    "id": 27,
-    "name": "Horror"
-  }, {
-    "id": 10402,
-    "name": "Music"
-  }, {
-    "id": 9648,
-    "name": "Mystery"
-  }, {
-    "id": 10749,
-    "name": "Romance"
-  }, {
-    "id": 878,
-    "name": "Science Fiction"
-  }, {
-    "id": 10770,
-    "name": "TV Movie"
-  }, {
-    "id": 53,
-    "name": "Thriller"
-  }, {
-    "id": 10752,
-    "name": "War"
-  }, {
-    "id": 37,
-    "name": "Western"
-  }]
-}*/

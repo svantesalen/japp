@@ -1,10 +1,13 @@
 package japp;
 
+import javax.security.sasl.AuthenticationException;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import japp.control.network.Session;
 import japp.control.network.SessionLess;
 import japp.control.network.exceptions.NetworkException;
 import japp.model.movies.Genre;
@@ -29,11 +32,21 @@ public class Controller {
 	private SessionLess sessionLess;
 	private GenreList genreList;
 
+	private boolean showHint = true;
+
+	/**
+	 * CTOR
+	 */
 	private Controller() {
 		LookAndFeel.set();
 		mainWindow = MainWindow.createAndShowGui();
 		sessionLess = new SessionLess();
 		populateGenres();
+	}
+
+	public static void start() {
+		instance = new Controller();		
+		JOptionPane.showMessageDialog(null, "View genre contents by pressing RETURN when selected", "INFO", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public static Controller getInstance() {
@@ -63,30 +76,53 @@ public class Controller {
 			genre = sessionLess.fetchMoviesInGenre(genreId);
 			mainWindow.populateMoviesListPanel(genre);
 			mainWindow.repaint(genreName.toUpperCase()+ " MOVIES");
-			log.debug("###### "+genre.toString());
 		} catch (NetworkException e) {
-			log.error("Failed to fetch data for genre: name="+genreName+", id="+genreId);
+			log.error("Failed to fetch data for genre: name="+genreName+", id="+genreId, e);
+			return;
 		}
+		if(showHint) {
+			JOptionPane.showMessageDialog(null, "View movie contents by selecting a movie", "INFO", JOptionPane.INFORMATION_MESSAGE);
+			showHint = false;
+		}
+	}
+
+	// TODO: authenticate not used right now, but it works.
+	/**
+	 * Authenticate. For some parts of the TMDb API you need a session ID. 
+	 * @return Session containing session ID.
+	 */
+	public Session authenticate() {
+		Session session;
+		try {
+			session = new Session();			
+		} catch (NetworkException|AuthenticationException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+			log.error("Could not start session.", e);
+			return null;
+		}
+		return session;
 	}
 
 	/**
 	 * Method called when user hits the button.
 	 */ 
-	public void onGenresButtonClick() {
+	public void onUserActionButtonClick() {
 		populateGenres();
 		mainWindow.clearTextArea();
 		return;
 	}
 
-	public void handleSelectGenre(String genreName) {
+	/**
+	 * Method called when user hits RETURN to select a genre.
+	 */ 
+	public void onUserActionSelectGenre(String genreName) {
 		populateMovies(genreName);
 	}
 
-	public void handleSelectMovie(Movie movie) {
+	/**
+	 * Method called when user moves to another list cell in the movie list.
+	 */ 
+	public void onUserActionSelectMovie(Movie movie) {
 		mainWindow.presentMovie(movie);		
 	}
-	public void handleExit() {
-		System.exit(0); // NOSONAR			
-	}
-
 }

@@ -15,6 +15,8 @@ public class HttpCommunicator {
 
 	private  static Logger log = LogManager.getLogger(HttpCommunicator.class);
 
+	private HttpCommunicator() {}
+
 	public static String send(String requestUrl) throws NetworkException {
 		log.info("Trying this URL:"+requestUrl);
 		Client client = ClientBuilder.newClient();
@@ -42,7 +44,5 @@ public class HttpCommunicator {
 				log.error("Error at close connection.", e);
 			}
 		}
-	}
-
-		
+	}	
 }

@@ -68,11 +68,6 @@ public class MainWindow {
 	public void clearTextArea() {
 		jappTextArea.clear();
 	}
-//
-//	public void addText(String text) {
-//		jappTextArea.addText(text);
-//	}
-
 
 	private void addComponentsToPane(JComponent contentPane) {
 		contentPane.add(jappListPanel.getPanel(), BorderLayout.WEST);

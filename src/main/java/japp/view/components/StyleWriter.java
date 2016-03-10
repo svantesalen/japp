@@ -18,6 +18,10 @@ public class StyleWriter {
 		this.styledDoc = styledDoc;
 	}
 
+	/**
+	 * Write movie details.
+	 * @param movie 
+	 */
 	public void writeMovie(Movie movie) {
 		textArea.initiateContents();
 		styledDoc.insertInfoText("\n");

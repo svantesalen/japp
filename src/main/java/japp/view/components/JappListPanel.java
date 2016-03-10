@@ -160,15 +160,11 @@ public class JappListPanel implements ListSelectionListener {
 			public void keyPressed( KeyEvent e ) {/* EMPTY */}
 			@Override
 			public void keyReleased( KeyEvent e ) {
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					Controller.getInstance().handleExit();
-				}
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					if(!populatedWithMovies) {
-						Controller.getInstance().handleSelectGenre(selectedValue);						
-					}
+				if(e.getKeyCode() == KeyEvent.VK_ENTER && !populatedWithMovies) {
+					Controller.getInstance().onUserActionSelectGenre(selectedValue);						
 				}
 			}
+
 		} );
 	}
 
@@ -193,9 +189,8 @@ public class JappListPanel implements ListSelectionListener {
 		log.debug("selectedValue: "+selectedValue);
 		if(populatedWithMovies) {
 			Movie selectedMovie = movies.get(jList.getSelectedIndex());
-			Controller.getInstance().handleSelectMovie(selectedMovie);
+			Controller.getInstance().onUserActionSelectMovie(selectedMovie);
 		}
-
 	}
 
 	public void repaint(String borderName) {
