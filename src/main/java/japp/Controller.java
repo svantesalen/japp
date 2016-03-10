@@ -70,6 +70,19 @@ public class Controller {
 		populateGenres();
 		return;
 	}
+	
+	public void handleSelectGenre(String genreName) {
+		String genreId = genreList.getIdFromName(genreName);
+		log.debug("found id="+genreId+" from name="+genreName);
+		Genre genre;
+		try {
+			genre = sessionLess.fetchMoviesInGenre(genreId);
+			log.debug("###### "+genre.toString());
+		} catch (NetworkException e) {
+			log.error("Failed to fetch data for genre: name="+genreName+", id="+genreId);
+		}
+		
+	}
 
 	public void handleExit() {
 		System.exit(0); // NOSONAR			

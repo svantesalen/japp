@@ -53,6 +53,17 @@ public class GenreList {
 		return genres;
 	}
 
+	// TODO: maybe exception instead
+	public String getIdFromName(String name) {
+		for(Entry<String, String> entry: genres.entrySet()) {
+			if(entry.getValue().trim().equals(name.trim())) {
+				return entry.getKey();
+			}
+		}
+		log.error("No genre found with name: "+name);
+		return "";
+	}
+	
 	
 	@Override
 	public String toString() {

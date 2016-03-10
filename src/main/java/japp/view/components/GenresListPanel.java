@@ -22,6 +22,7 @@ import javax.swing.event.ListSelectionListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import japp.Controller;
 import japp.model.movies.GenreList;
 import japp.view.look.Colors;
 import japp.view.look.JappTheme;
@@ -42,9 +43,9 @@ public class GenresListPanel implements ListSelectionListener {
 	private JPanel jPanel = new JPanel();
 	private DefaultListModel<String> jListModel = new DefaultListModel<>();
 	private JList<String> jList;
-	TitledBorder border;
-	private GenreList genreList;
+	private TitledBorder border;
 	private String cellWidth = "                                                                 ";
+	private String selectedValue;
 
 	/**
 	 * CTOR
@@ -67,15 +68,14 @@ public class GenresListPanel implements ListSelectionListener {
 		if(genreList.size() == 0) {
 			return;
 		}
-		this.genreList = genreList;
-		
+
 		for(Entry<String, String> entry: genreList.getGenres().entrySet()) {
 			jListModel.addElement(entry.getValue());
 			jList.setSelectedIndex(0);
 		}
 		jList.requestFocus();
 	}
-	
+
 	public void clear() {
 		jListModel.clear();
 	}
@@ -135,7 +135,10 @@ public class GenresListPanel implements ListSelectionListener {
 			@Override
 			public void keyReleased( KeyEvent e ) {
 				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//					Controller.getInstance().handleExit();
+					Controller.getInstance().handleExit();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Controller.getInstance().handleSelectGenre(selectedValue);
 				}
 			}
 		} );
@@ -158,11 +161,11 @@ public class GenresListPanel implements ListSelectionListener {
 		if (e.getValueIsAdjusting()||jList.getSelectedIndex()<0) {
 			return;
 		}
-//		int index = jList.getSelectedIndex();
-		String selectedValue = jList.getSelectedValue();
+		selectedValue = jList.getSelectedValue();
+		
 		log.debug("selectedValue: "+selectedValue);
 	}
-	
+
 	public void repaint() {
 		border.setTitle(borderName);
 		jPanel.repaint();

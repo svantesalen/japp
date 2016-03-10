@@ -33,7 +33,7 @@ public class ButtonPanel {
 		addComponents();
 		jPanel.setBackground(JappTheme.bgColor);
 	}
- 
+
 	public static ButtonPanel getInstance() {
 		return instance;
 	}
