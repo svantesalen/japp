@@ -46,7 +46,7 @@ public class Controller {
 
 	public static void start() {
 		instance = new Controller();		
-		JOptionPane.showMessageDialog(null, "View genre contents by pressing RETURN when selected", "INFO", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "View a genres contents by pressing \nRETURN when genre is selected", "INFO", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public static Controller getInstance() {

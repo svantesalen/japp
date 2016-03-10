@@ -43,8 +43,9 @@ public class JsonHelper {
 			String value = castToString(obj.get(key));
 			log.debug(key+"="+value);
 			return value;
-		} catch (JSONException e) { // NOSONAR - not logging exception since too much output.
-			log.error("Could not read key="+key);
+		} catch (JSONException e) { 
+			// TODO - not logging exception since too much output. Need to change Movie so it does not call for the "extra info" keys.
+			log.warn("Could not read key="+key);
 			return "";
 		}
 	}
