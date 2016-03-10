@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import japp.JsonHelper;
+import japp.control.json.JsonHelper;
 
 public class GenreList {
 
@@ -44,6 +44,15 @@ public class GenreList {
 			}
 		} 	
 	}
+
+	public int size() {
+		return genres.size();
+	}
+	
+	public Map<String, String> getGenres() {
+		return genres;
+	}
+
 	
 	@Override
 	public String toString() {

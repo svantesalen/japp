@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import japp.JsonHelper;
+import japp.control.json.JsonHelper;
 
 public class Genre {
 	public enum Keys {
