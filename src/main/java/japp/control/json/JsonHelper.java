@@ -32,7 +32,7 @@ public class JsonHelper {
 	}	
 
 	/**
-	 * Get the value from a json object. Convert non-String objects to String.
+	 * Get the value from a json object. Convert non-String objects to String if possible.
 	 * 
 	 * @param key
 	 * @param obj
@@ -44,7 +44,7 @@ public class JsonHelper {
 			log.debug(key+"="+value);
 			return value;
 		} catch (JSONException e) {
-			log.error("Could not read key="+key, e);
+			log.error("Could not read key="+key);
 			return "";
 		}
 	}
@@ -60,6 +60,15 @@ public class JsonHelper {
 		} catch (ClassCastException e) {/*empty*/} // NOSONAR
 		try {
 			return Integer.toString((int) obj);
+		} catch (ClassCastException e) {/*empty*/} // NOSONAR
+		try {
+			return Long.toString((long) obj);
+		} catch (ClassCastException e) {/*empty*/} // NOSONAR
+		try {
+			return Float.toString((float) obj);
+		} catch (ClassCastException e) {/*empty*/} // NOSONAR
+		try {
+			return Double.toString((double) obj);
 		} catch (ClassCastException e) {/*empty*/} // NOSONAR
 		try {
 			return Boolean.toString((boolean) obj);

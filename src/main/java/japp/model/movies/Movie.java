@@ -86,9 +86,61 @@ public class Movie {
 	public Movie(JSONObject jsonObject) {
 		for(Keys key: Keys.values()) {
 			details.put(key.getKey(), JsonHelper.getValue(key.getKey(), jsonObject));
+			log.debug("### Added movie detail: "+ key.getKey()+"="+details.get(key.getKey()));
 		}
 	}
 
+	public String getId() {
+		return details.get(Keys.ID.getKey());
+	}
+
+	public String getTitle() {
+		return details.get(Keys.TITLE.getKey());
+	}
+
+	public String getTagline() {
+		return details.get(Keys.TAGLINE.getKey());
+	}
+
+	public String getOverview() {
+		return details.get(Keys.OVERVIEW.getKey());
+	}
+
+	public String getPopulatity() {
+		return details.get(Keys.POPULARITY.getKey());
+	}
+
+	public String getReleaseDate() {
+		return details.get(Keys.RELEASE_DATE.getKey());
+	}
+
+	public String getVoteAverage() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(details.get(Keys.VOTE_AVERAGE.getKey()));
+		return sb.toString();
+	}
+
+	public String getVoteCount() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(details.get(Keys.VOTE_COUNT.getKey()));
+		return sb.toString();
+	}
+	
+	public String getShortInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getReleaseYear());
+		sb.append(": ");
+		sb.append(details.get(Keys.TITLE.getKey()));
+		return sb.toString();
+	}
+	
+	private String getReleaseYear() {
+		String date = details.get(Keys.RELEASE_DATE.getKey());
+		if(date.isEmpty()) {
+			return "Year?";
+		}
+		return date.substring(0, 4);
+	}
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -104,7 +156,20 @@ public class Movie {
 		return sb.toString();
 	}
 }
-
+/*overview : As a cowardly farmer begins to fall for the mysterious new woman in town, he must put his new-found courage to the test when her husband, a notorious gun-slinger, announces his arrival.
+original_language : en
+original_title : A Million Ways to Die in the West
+video : false
+title : A Million Ways to Die in the West
+poster_path : /12fqfvUmBOPg2pA0RsEhc31P28O.jpg
+backdrop_path : /tkxiEwG9xJIbyzvJSGYUyTkz3Mj.jpg
+release_date : 2014-05-28
+popularity : 3.560446
+vote_average : 5.9
+id : 188161
+adult : false
+vote_count : 894
+*/
 
 // TODO: implement extra details:
 //	http://private-anon-6626a6239-themoviedb.apiary-proxy.com/3/movie/293660?api_key=8c92bdaa90b74ce495f535d3bb9849bb

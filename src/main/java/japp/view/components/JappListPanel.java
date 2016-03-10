@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
@@ -23,7 +25,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import japp.Controller;
+import japp.model.movies.Genre;
 import japp.model.movies.GenreList;
+import japp.model.movies.Movie;
 import japp.view.look.Colors;
 import japp.view.look.JappTheme;
 
@@ -33,25 +37,26 @@ import japp.view.look.JappTheme;
  * @author svante
  *
  */
-public class GenresListPanel implements ListSelectionListener {
+public class JappListPanel implements ListSelectionListener {
 	private static final int MAX_ROWS = 18;
-	private static String borderName = "GENRES";
 
-	private static Logger log = LogManager.getLogger(GenresListPanel.class);
-	private static GenresListPanel instance;
+	private static Logger log = LogManager.getLogger(JappListPanel.class);
+	private static JappListPanel instance;
 
 	private JPanel jPanel = new JPanel();
 	private DefaultListModel<String> jListModel = new DefaultListModel<>();
 	private JList<String> jList;
 	private TitledBorder border;
-	private String cellWidth = "                                  ";
+	private String cellWidth = "                                                          ";
 	private String selectedValue;
+
+	private boolean populatedWithMovies=false;
 
 	/**
 	 * CTOR
 	 * @param genreList
 	 */
-	public GenresListPanel() {
+	public JappListPanel() {
 		instance=this;
 		jList = new JList<>(jListModel);
 		jList.setPrototypeCellValue(cellWidth);
@@ -74,6 +79,27 @@ public class GenresListPanel implements ListSelectionListener {
 			jList.setSelectedIndex(0);
 		}
 		jList.requestFocus();
+		populatedWithMovies=false;
+	}
+
+	// TODO need to keep track of what movie corresponds to what list entry. Is a better way?
+	private List<Movie> movies;
+
+	public void populate(Genre genre) {
+		jListModel.clear();
+		if(genre.size() == 0) {
+			return;
+		}
+		movies = new ArrayList<>();
+		Movie movie;
+		for(Entry<String, Movie> entry: genre.getMovies().entrySet()) {
+			movie = entry.getValue();
+			jListModel.addElement(movie.getShortInfo());
+			movies.add(movie);
+			jList.setSelectedIndex(0);
+		}
+		jList.requestFocus();
+		populatedWithMovies=true;
 	}
 
 	public void clear() {
@@ -120,7 +146,7 @@ public class GenresListPanel implements ListSelectionListener {
 
 	private void initiateBorders(JScrollPane listScrollPane) {		
 		listScrollPane.setBorder(BorderFactory.createEmptyBorder());
-		border = BorderFactory.createTitledBorder(borderName);
+		border = BorderFactory.createTitledBorder("...WAIT...");
 		border.setTitleFont(JappTheme.borderTitleFont);
 		border.setTitleColor(JappTheme.borderTitleColor);
 		jPanel.setBorder(border);
@@ -138,7 +164,9 @@ public class GenresListPanel implements ListSelectionListener {
 					Controller.getInstance().handleExit();
 				}
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					Controller.getInstance().handleSelectGenre(selectedValue);
+					if(!populatedWithMovies) {
+						Controller.getInstance().handleSelectGenre(selectedValue);						
+					}
 				}
 			}
 		} );
@@ -148,7 +176,7 @@ public class GenresListPanel implements ListSelectionListener {
 		return jPanel;
 	}
 
-	public static GenresListPanel getInstance() {	
+	public static JappListPanel getInstance() {	
 		return instance; 
 	}
 
@@ -161,12 +189,16 @@ public class GenresListPanel implements ListSelectionListener {
 		if (e.getValueIsAdjusting()||jList.getSelectedIndex()<0) {
 			return;
 		}
-		selectedValue = jList.getSelectedValue();
-		
+		selectedValue = jList.getSelectedValue();		
 		log.debug("selectedValue: "+selectedValue);
+		if(populatedWithMovies) {
+			Movie selectedMovie = movies.get(jList.getSelectedIndex());
+			Controller.getInstance().handleSelectMovie(selectedMovie);
+		}
+
 	}
 
-	public void repaint() {
+	public void repaint(String borderName) {
 		border.setTitle(borderName);
 		jPanel.repaint();
 	}

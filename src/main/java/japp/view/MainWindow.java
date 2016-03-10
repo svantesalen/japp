@@ -10,9 +10,11 @@ import javax.swing.JPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import japp.model.movies.Genre;
 import japp.model.movies.GenreList;
+import japp.model.movies.Movie;
 import japp.view.components.ButtonPanel;
-import japp.view.components.GenresListPanel;
+import japp.view.components.JappListPanel;
 import japp.view.components.JappTextArea;
 
 
@@ -27,7 +29,7 @@ public class MainWindow {
 	private static Logger log = LogManager.getLogger(MainWindow.class);
 
 	private JappTextArea  jappTextArea = new JappTextArea();
-	private GenresListPanel genreListPanel = new GenresListPanel();
+	private JappListPanel jappListPanel = new JappListPanel();
 	private ButtonPanel buttonPanel =  new ButtonPanel();
 
 	private JFrame mainFrame;
@@ -63,26 +65,36 @@ public class MainWindow {
 		GuiHelper.center(mainFrame);
 	}
 
-	public void setText(String text) {
-		jappTextArea.setText(text);
+	public void clearTextArea() {
+		jappTextArea.clear();
 	}
+//
+//	public void addText(String text) {
+//		jappTextArea.addText(text);
+//	}
 
-	public void addText(String text) {
-		jappTextArea.addText(text);
-	}
 
 	private void addComponentsToPane(JComponent contentPane) {
-		contentPane.add(genreListPanel.getPanel(), BorderLayout.WEST);
+		contentPane.add(jappListPanel.getPanel(), BorderLayout.WEST);
 		contentPane.add(jappTextArea.getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(buttonPanel.getPanel(), BorderLayout.SOUTH);
 	}
 
-	public void populateListPanel(GenreList genreList) {
-		genreListPanel.populate(genreList);
+	public void populateGenresListPanel(GenreList genreList) {
+		jappListPanel.populate(genreList);
 	}
 
-	public void repaint() {
-		genreListPanel.repaint();
+	public void populateMoviesListPanel(Genre genre) {
+		jappListPanel.populate(genre);
+	}
+
+	public void presentMovie(Movie movie) {
+		jappTextArea.setText(movie);
+		jappTextArea.repaint(movie.getTitle());
+	}
+
+	public void repaint(String borderName) {
+		jappListPanel.repaint(borderName);
 		jappTextArea.repaint();
 	}
 	

@@ -23,7 +23,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import japp.Controller;
-import japp.model.movies.GenreList;
+import japp.model.movies.Genre;
+import japp.model.movies.Movie;
 import japp.view.look.Colors;
 import japp.view.look.JappTheme;
 
@@ -33,25 +34,24 @@ import japp.view.look.JappTheme;
  * @author svante
  *
  */
-public class GenresListPanel implements ListSelectionListener {
+public class MoviesListPanel implements ListSelectionListener {
 	private static final int MAX_ROWS = 18;
-	private static String borderName = "GENRES";
+	private static String borderName = "MOVIES FOR GENRE ";
 
-	private static Logger log = LogManager.getLogger(GenresListPanel.class);
-	private static GenresListPanel instance;
+	private static Logger log = LogManager.getLogger(MoviesListPanel.class);
+	private static MoviesListPanel instance;
 
 	private JPanel jPanel = new JPanel();
 	private DefaultListModel<String> jListModel = new DefaultListModel<>();
 	private JList<String> jList;
 	private TitledBorder border;
-	private String cellWidth = "                                  ";
+	private String cellWidth = "                                                                 ";
 	private String selectedValue;
 
 	/**
 	 * CTOR
-	 * @param genreList
 	 */
-	public GenresListPanel() {
+	public MoviesListPanel() {
 		instance=this;
 		jList = new JList<>(jListModel);
 		jList.setPrototypeCellValue(cellWidth);
@@ -63,14 +63,14 @@ public class GenresListPanel implements ListSelectionListener {
 		addListeners();
 	}
 
-	public void populate(GenreList genreList) {
+	public void populate(Genre genre) {
 		jListModel.clear();
-		if(genreList.size() == 0) {
+		if(genre.size() == 0) {
 			return;
 		}
 
-		for(Entry<String, String> entry: genreList.getGenres().entrySet()) {
-			jListModel.addElement(entry.getValue());
+		for(Entry<String, Movie> entry: genre.getMovies().entrySet()) {
+			jListModel.addElement(entry.getValue().toString());
 			jList.setSelectedIndex(0);
 		}
 		jList.requestFocus();
@@ -148,7 +148,7 @@ public class GenresListPanel implements ListSelectionListener {
 		return jPanel;
 	}
 
-	public static GenresListPanel getInstance() {	
+	public static MoviesListPanel getInstance() {	
 		return instance; 
 	}
 

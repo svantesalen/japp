@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import japp.model.movies.Movie;
 import japp.view.look.JappTheme;
 
 
@@ -31,6 +32,7 @@ public class JappTextArea  {
 	private JScrollPane scrollPane;
 	private JappTextAreaStyledDocument styledDoc;
 	private TitledBorder border;
+	private StyleWriter styleWriter;
 
 	/**
 	 * CTOR
@@ -68,20 +70,21 @@ public class JappTextArea  {
 		textPane.setEditable(false);
 		textPane.setText("");
 		styledDoc = new JappTextAreaStyledDocument(textPane);
+		styleWriter = new StyleWriter(this, styledDoc);
 	}
 
-	public void setText(String text) {
+	public void setText(Movie movie) {
 		textPane.setText("");
-		styledDoc.insertResultText(text);
-	}
-	public void addText(String text) {
-		styledDoc.insertResultText(text);
+		styleWriter.writeMovie(movie);
+		repaint(movie.getTitle());
 	}
 
-	public void addSearchInfoText(String text) {
-		styledDoc.insertProgressText(text);
+	public void clear() {
+		log.debug("#######################CLEAR##########");
+		textPane.setText(" ");		
+		textPane.setText("");		
 	}
-
+	
 	public String getText() {
 		return textPane.getText();
 	}
@@ -98,7 +101,10 @@ public class JappTextArea  {
 
 
 	public void repaint() {
-		border.setTitle(BORDER_NAME);
+		repaint(BORDER_NAME);
+	}
+	public void repaint(String borderName) {
+		border.setTitle(borderName);
 		textPane.repaint();
 	}
 

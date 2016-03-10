@@ -1,7 +1,8 @@
 package japp.model.movies;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,14 +34,14 @@ public class Genre {
 	// Genre identification.
 	private String id;
 	private String name;
-
 	private String page;
-	private List<Movie> movies = new ArrayList<>();
+	private Map<String, Movie> mopvieMap = new HashMap<>();
+
 	private String totalPages;
 	private String totalResults;
 
 	/**
-	 * CTOR, 
+	 * CTOR
 	 * @param jsonString
 	 */
 	public Genre(String jsonString) {
@@ -55,7 +56,8 @@ public class Genre {
 		for(int i = 0 ; i < results.length(); i++) {
 			try {
 				movie = new Movie((JSONObject)results.get(i));
-				movies.add(movie);
+				log.debug("###### Adding: movie: "+movie.getId());
+				mopvieMap.put(movie.getId(), movie);
 			} catch (JSONException e) {
 				log.error("Cannot create Movie. Not a valid json object: "+movieString, e);
 			}
@@ -66,6 +68,16 @@ public class Genre {
 		page = JsonHelper.getValue(Keys.PAGE.getKey(), jsonString);
 		totalPages = JsonHelper.getValue(Keys.TOTAL_PAGES.getKey(), jsonString);
 		totalResults = JsonHelper.getValue(Keys.TOTAL_RESULT.getKey(), jsonString);	
+	}
+
+	public int size() {
+		return mopvieMap.size();
+	}
+
+
+
+	public Map<String, Movie> getMovies() {
+		return mopvieMap;
 	}
 
 	@Override
@@ -80,31 +92,12 @@ public class Genre {
 		sb.append("totalPages="+totalPages);
 		sb.append("\n");
 		sb.append("totalResults="+totalResults);
-		for(Movie movie: movies) {
+		for(Entry<String, Movie> entry: mopvieMap.entrySet()) {
 			sb.append("\n");
-			sb.append("movie="+movie.toString());
+			sb.append("movie="+entry.getValue().toString());
 		}
 		return sb.toString();
 	}	
-
-	//@Override
-	//	public String toString() {
-	//		StringBuilder sb = new StringBuilder();
-	//		sb.append("id="+id);
-	//		sb.append("\n");
-	//		sb.append("page="+page);
-	//		sb.append("\n");
-	//		sb.append("totalPages="+totalPages);
-	//		sb.append("\n");
-	//		sb.append("totalResults="+totalResults);
-	//		sb.append("\n");
-	//		sb.append("\n");
-	//		for(Movie movie: movies) {
-	//			sb.append(movie.toString());
-	//			sb.append("\n---------------------\n");
-	//		}
-	//		return sb.toString();
-	//	}
 }
 
 /* 

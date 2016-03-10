@@ -22,14 +22,11 @@ public class JappTextAreaStyledDocument {
 
 	private static Logger log = LogManager.getLogger(JappTextAreaStyledDocument.class);
 	private StyledDocument doc;
-	private Style resultStyle;
-	private Style numberOfSubDirsStyle;
-	private Style numberOfFilesStyle;
-	private Style symbolicLinkStyle;
-	private Style emptyDirStyle;
+	private Style titleStyle;
+	private Style overviewStyle;
 	private Style infoStyle;
+	private Style tagLineStyle;
 	private Style underlinedInfoStyle;
-	private Style progressStyle;
 
 	/**
 	 * CTOR
@@ -39,72 +36,44 @@ public class JappTextAreaStyledDocument {
 		textPane.setEditable(false);
 		textPane.setText("");
 		doc = textPane.getStyledDocument();
-		setResultStyle();
-		setSymbolicLinkStyle();
-		setEmptyDirStyle();
-		setNumberOfSubDirsStyleStyle();
-		setNumberOfFilesStyleStyle();
-		setProgressStyle();
+		setTitleStyle();
+		setOverviewStyleStyle();
+		setTaglineStyle();
 		setInfoStyle();
 		setUnderlinedInfoStyle();
 	}
 
-	/**
-	 * Used for presenting final result.
-	 */
-	private void setResultStyle() {
+	private void setTitleStyle() {
 		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		resultStyle = doc.addStyle("resultStyle",def);
+		titleStyle = doc.addStyle("titleStyle",def);
 
-		StyleConstants.setForeground(resultStyle,JappTheme.textAreaResultColor);
-		StyleConstants.setFontFamily(resultStyle, JappTheme.getDefaultFontName());
-		StyleConstants.setBold(resultStyle, false);
-		StyleConstants.setFontSize(resultStyle, 14);
+		StyleConstants.setForeground(titleStyle,JappTheme.textAreaTitleColor);
+		StyleConstants.setFontFamily(titleStyle, JappTheme.getDefaultFontName());
+		StyleConstants.setBold(titleStyle, false);
+		StyleConstants.setFontSize(titleStyle, 20);
+	}
+
+	private void setOverviewStyleStyle() {
+		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+		overviewStyle = doc.addStyle("overviewStyle",def);
+
+		StyleConstants.setForeground(overviewStyle,JappTheme.textAreaOverviewColor);
+		StyleConstants.setFontFamily(overviewStyle, JappTheme.getDefaultFontName());
+		StyleConstants.setBold(overviewStyle, false);
+		StyleConstants.setFontSize(overviewStyle, 14);
+	}
+
+	private void setTaglineStyle() {
+		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+		tagLineStyle = doc.addStyle("tagLineStyle",def);
+
+		StyleConstants.setForeground(tagLineStyle,JappTheme.textAreaTaglineColor);
+		StyleConstants.setFontFamily(tagLineStyle, JappTheme.getDefaultFontName());
+		StyleConstants.setItalic(tagLineStyle, false);
+		StyleConstants.setBold(tagLineStyle, false);
+		StyleConstants.setFontSize(tagLineStyle, 14);
 	}
 	
-	/**
-	 * Used for presenting symbolic link.
-	 */
-	private void setSymbolicLinkStyle() {
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		symbolicLinkStyle = doc.addStyle("symbolicLinkStyle",def);
-
-		StyleConstants.setForeground(symbolicLinkStyle,JappTheme.textAreaSymbolicLinkColor);
-		StyleConstants.setFontFamily(symbolicLinkStyle, JappTheme.getDefaultFontName());
-		StyleConstants.setBold(symbolicLinkStyle, false);
-		StyleConstants.setItalic(symbolicLinkStyle, true);
-		StyleConstants.setFontSize(symbolicLinkStyle, 14);
-	}
-
-	/**
-	 * Used for presenting number of sub-directories.
-	 */
-	private void setNumberOfSubDirsStyleStyle() {
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		numberOfSubDirsStyle = doc.addStyle("numberOfSubDirsLinkStyle",def);
-
-		StyleConstants.setForeground(numberOfSubDirsStyle,JappTheme.textAreaNumberOfSubDirsColor);
-		StyleConstants.setFontFamily(numberOfSubDirsStyle, JappTheme.getDefaultFontName());
-		StyleConstants.setBold(numberOfSubDirsStyle, false);
-		StyleConstants.setFontSize(numberOfSubDirsStyle, 14);
-	}
-
-	/**
-	 * Used for presenting number of files.
-	 */
-	private void setNumberOfFilesStyleStyle() {
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		numberOfFilesStyle = doc.addStyle("numberOfFilesStyle",def);
-
-		StyleConstants.setForeground(numberOfFilesStyle,JappTheme.textAreaNumberOfFilesColor);
-		StyleConstants.setFontFamily(numberOfFilesStyle, JappTheme.getDefaultFontName());
-		StyleConstants.setBold(numberOfFilesStyle, false);
-		StyleConstants.setFontSize(numberOfFilesStyle, 14);
-	}
-
-	/**
-	 * Used for presenting info.
-	 */
 	private void setInfoStyle() {
 		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
 		infoStyle = doc.addStyle("infoStyle",def);
@@ -115,65 +84,27 @@ public class JappTextAreaStyledDocument {
 		StyleConstants.setBold(infoStyle, false);
 		StyleConstants.setFontSize(infoStyle, 14);
 	}
+	
 	private void setUnderlinedInfoStyle() {
 		underlinedInfoStyle = doc.addStyle("underlinedInfoStyle",infoStyle);
 		StyleConstants.setUnderline(underlinedInfoStyle, true);
 
 	}
 
-	private void setEmptyDirStyle() {
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		emptyDirStyle = doc.addStyle("emptyDirStyle",def);
-
-		StyleConstants.setForeground(emptyDirStyle,JappTheme.textAreaEmptyDirColor);
-		StyleConstants.setFontFamily(emptyDirStyle, JappTheme.getDefaultFontName());
-		StyleConstants.setItalic(emptyDirStyle, false);
-		StyleConstants.setBold(emptyDirStyle, false);
-		StyleConstants.setFontSize(emptyDirStyle, 14);
-	}
-	/**
-	 * Used for presenting progress information.
-	 */
-	private void setProgressStyle() {
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		progressStyle = doc.addStyle("progressStyle",def);
-
-		StyleConstants.setForeground(progressStyle,JappTheme.textAreaProgressColor);
-		StyleConstants.setBold(progressStyle, false);
-		StyleConstants.setFontFamily(progressStyle, JappTheme.getDefaultFontName());
-		StyleConstants.setFontSize(progressStyle, 12);
+	public void insertTitleText(String text) {
+		insertStyledText(text, titleStyle);
 	}
 
-	public void insertProgressText(String text) {
-		insertStyledText(text, progressStyle);
-	}
-
-	public void insertResultText(String text) {
-		insertStyledText(text, resultStyle);
-	}
-
-	public void insertSymbolicLinkText(String text) {
-		insertStyledText(text, symbolicLinkStyle);
+	public void insertOverviewText(String text) {
+		insertStyledText(text, overviewStyle);
 	}
 
 	public void insertInfoText(String text) {
 		insertStyledText(text, infoStyle);
 	}
 
-	public void insertEmptyDirText(String text) {
-		insertStyledText(text, emptyDirStyle);
-	}
-
 	public void insertUnderlinedInfoText(String text) {
 		insertStyledText(text, underlinedInfoStyle);
-	}
-
-	public void insertNumberOfSubDirsText(String text) {
-		insertStyledText(text, numberOfSubDirsStyle);
-	}
-
-	public void insertNumberOfFilesText(String text) {
-		insertStyledText(text, numberOfFilesStyle);
 	}
 
 	public void insertStyledText(String text, Style style) {
