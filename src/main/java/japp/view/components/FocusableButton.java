@@ -7,10 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
-
 import japp.view.look.JappTheme;
-
-
 
 @SuppressWarnings("serial")
 public abstract class FocusableButton extends JButton { // NOSONAR

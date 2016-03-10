@@ -11,20 +11,17 @@ import japp.control.network.SessionLess;
 import japp.control.network.exceptions.NetworkException;
 import japp.model.movies.Genre;
 import japp.model.movies.GenreList;
-import japp.view.MainWindow;
-import japp.view.look.LookAndFeel;
 
 public class MainClass {
 
 	private static Logger log = LogManager.getLogger(MainClass.class);
 
 	public static void main(String[] args) {	
-		LookAndFeel.set();
-		MainWindow.createAndShowGui();
-
-		MainClass mainClass = new MainClass();
-//		mainClass.authenticate();
-		mainClass.getGenres();
+		Controller controller = Controller.getInstance();
+		
+//		MainClass mainClass = new MainClass();
+////		mainClass.authenticate();
+//		mainClass.getGenres();
 
 	}
 

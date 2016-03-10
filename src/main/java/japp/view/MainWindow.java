@@ -18,6 +18,7 @@ import japp.view.components.JappTextArea;
 
 /**
  * The applications main window.
+ * 
  * @author svante
  *
  */
@@ -35,8 +36,9 @@ public class MainWindow {
 		setup(); 
 	}
 
-	public static void createAndShowGui() {	
+	public static MainWindow createAndShowGui() {	
 		instance =  new MainWindow();
+		return instance;
 	}
 
 	public static MainWindow getInstance() {
@@ -57,9 +59,8 @@ public class MainWindow {
 		mainFrame.setContentPane(contentPane);
 		mainFrame.pack();
 		mainFrame.setVisible(true);		
-
-		buttonPanel.setFindFocus();
-//		GuiHelper.center(mainFrame);
+		buttonPanel.setGenresFocus();
+		GuiHelper.center(mainFrame);
 	}
 
 	public void setText(String text) {
@@ -68,10 +69,6 @@ public class MainWindow {
 
 	public void addText(String text) {
 		jappTextArea.addText(text);
-	}
-
-	public void addSearchInfoText(String text) {
-		jappTextArea.addSearchInfoText(text);
 	}
 
 	private void addComponentsToPane(JComponent contentPane) {
@@ -83,15 +80,6 @@ public class MainWindow {
 	public void populateListPanel(GenreList genreList) {
 		genreListPanel.populate(genreList);
 	}
-	
-	public void startFinding() {
-		buttonPanel.finding(true);
-		genreListPanel.clear();
-}
-
-	public void stopFinding() {
-		buttonPanel.finding(false);
-}
 
 	public void repaint() {
 		genreListPanel.repaint();

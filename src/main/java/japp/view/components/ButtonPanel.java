@@ -23,11 +23,7 @@ public class ButtonPanel {
 	private static ButtonPanel instance;
 
 	private JPanel jPanel = new JPanel();
-	private FocusableButton findCopiesButton;
-	private FocusableButton breakButton;
-	private JButton helpButton;
-	private JButton languageButton;
-	private boolean isFinding = false;
+	private FocusableButton genresButton;
 
 	/**
 	 * CTOR
@@ -41,20 +37,19 @@ public class ButtonPanel {
 	public static ButtonPanel getInstance() {
 		return instance;
 	}
-
-	public boolean isFinding() {
-		return isFinding;
-	}
-
 	private void addComponents() {
 		jPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
-		findCopiesButton = new FindButton("FIND");
-		findCopiesButton.setBackground(JappTheme.bgColor);
-		findCopiesButton.setForeground(JappTheme.button_txt);
-		findCopiesButton.setFont(JappTheme.buttons);
-		setBorder(findCopiesButton);
-		jPanel.add(findCopiesButton);
+		genresButton = new GenresButton();
+		genresButton.setBackground(JappTheme.bgColor);
+		genresButton.setForeground(JappTheme.button_txt);
+		genresButton.setFont(JappTheme.buttons);
+		setBorder(genresButton);
+		jPanel.add(genresButton);
+	}
+
+	public void setGenresFocus() {
+		genresButton.requestFocus();
 	}
 
 	private void setBorder(JButton button) {
@@ -65,15 +60,5 @@ public class ButtonPanel {
 
 	public JPanel getPanel() {
 		return jPanel;
-	}
-
-	public void setFindFocus() {
-		findCopiesButton.requestFocus();
-	}
-
-	public void finding(boolean isFinding) {
-		this.isFinding = isFinding;
-		findCopiesButton.setVisible(!isFinding);
-		breakButton.setVisible(isFinding);
 	}
 }

@@ -21,6 +21,7 @@ public class Colors {
 	public static final Color lila = new Color(113,1,98);
 	public static final Color darkLila= new Color(17,1,65);
 	public static final Color white = new Color(255, 255, 255);
+	public static final Color lightBlack = new Color(37,37, 37);
 	public static final Color black = new Color(37,37, 37);
 	public static final Color lightGrayOrig = new Color(193, 193, 193);
 	public static final Color lightGray = new Color(203, 203, 203);

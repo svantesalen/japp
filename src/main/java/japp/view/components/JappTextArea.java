@@ -25,7 +25,7 @@ import japp.view.look.JappTheme;
 public class JappTextArea  {
 	private static Logger log = LogManager.getLogger(JappTextArea.class);
 	
-	private static final String BORDER_NAME = "details";
+	private static final String BORDER_NAME = "DETAILS";
 	private static JappTextArea instance;
 	private JTextPane textPane  = new JTextPane();
 	private JScrollPane scrollPane;

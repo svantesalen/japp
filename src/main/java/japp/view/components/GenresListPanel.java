@@ -27,14 +27,14 @@ import japp.view.look.Colors;
 import japp.view.look.JappTheme;
 
 /**
- * A list of {@link FileWithCopies} found during a search.
+ * A list of {@link Genres}.
  * 
  * @author svante
  *
  */
 public class GenresListPanel implements ListSelectionListener {
-	private static final int MAX_ROWS = 15;
-	private static String borderName = "genres";
+	private static final int MAX_ROWS = 18;
+	private static String borderName = "GENRES";
 
 	private static Logger log = LogManager.getLogger(GenresListPanel.class);
 	private static GenresListPanel instance;

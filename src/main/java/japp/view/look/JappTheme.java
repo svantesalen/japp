@@ -29,6 +29,7 @@ public class JappTheme {
 
 	public static final Color button_txt = Colors.white;
 	public static final Color bgColor = Colors.blueGreen;
+//	public static final Color bgColor = Colors.darkBraun;
 	public static final Color borderTitleColor = Colors.lightBlueGreen;
 	public static final Color jListFontSelectedItemColor = Colors.darkYellow;
 	

@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import japp.Controller;
+
 /**
  * A button that starts the find for duplicates.
 
@@ -13,12 +15,13 @@ import org.apache.logging.log4j.Logger;
  *
  */
 @SuppressWarnings("serial")
-public class FindButton extends FocusableButton { // NOSONAR
+public class GenresButton extends FocusableButton { // NOSONAR
 
-	private static Logger log = LogManager.getLogger(FindButton.class);
+	private static Logger log = LogManager.getLogger(GenresButton.class);
 
-	public FindButton(String txt) {
-		super(txt);
+	private static final String NAME = "GENRES";
+	public GenresButton() {
+		super(NAME);
 	}
 
 	@Override
@@ -38,7 +41,7 @@ public class FindButton extends FocusableButton { // NOSONAR
 	} 
 
 	private void onClick() {
-//		Controller.getInstance().onFindCopiesButtonClick();
+		Controller.getInstance().onGenresButtonClick();
 	}
 
 }
