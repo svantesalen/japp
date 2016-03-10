@@ -9,14 +9,15 @@ import control.network.exceptions.NetworkException;
 import japp.JsonHelper;
 
 /**
- * Class that logs you in and stores the session id that is a result of that login.
+ * Handles the server interaction for session-id request. <br>
+ * The session-id is stored here after a successful "login".
  * @author svante
  *
  */
 public class Session {
 
 	private String sessionId;
-	
+
 	/**
 	 * CTOR.
 	 * @throws NetworkException 
@@ -25,7 +26,18 @@ public class Session {
 	public Session() throws NetworkException, AuthenticationException {
 		authenticate();
 	}
-	
+
+	/**
+	 * Authentication is made in these steps:
+	 * <ol>
+	 * <li>Get a request token</li>
+	 * <li>Ask user to verify in web browser</li>
+	 * <li>Wait for user confirm</li>
+	 * <li>Get the session ID (outcome from successful login)</li>
+	 * </ol>
+	 * @throws NetworkException
+	 * @throws AuthenticationException
+	 */
 	private void authenticate() throws NetworkException, AuthenticationException {
 
 		// 1. Get a request token.
@@ -37,7 +49,7 @@ public class Session {
 		}
 
 		// 2. Ask user to verify in web browser.
-		requestUrl = UrlBuild.getLoginVerificationUrl(token);
+		requestUrl = UrlBuild.buildLoginVerificationUrl(token);
 		HttpBrowserController.open(requestUrl);
 
 		// 3. Wait for user confirm.
@@ -52,7 +64,4 @@ public class Session {
 		}	
 		JOptionPane.showMessageDialog(null, "Your session ID: "+sessionId, "INFO", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
-	
-	
 }
