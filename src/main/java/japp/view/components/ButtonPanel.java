@@ -52,6 +52,11 @@ public class ButtonPanel {
 		genresButton.requestFocus();
 	}
 
+	public void fetchingDataOngoing(boolean isFetching)  {
+		genresButton.setEnabled(!isFetching);
+	}
+
+
 	private void setBorder(JButton button) {
 		button.setBorder(
 				BorderFactory.createCompoundBorder(button.getBorder(), 

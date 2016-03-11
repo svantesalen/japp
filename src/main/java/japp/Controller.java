@@ -15,6 +15,7 @@ import japp.model.movies.GenreList;
 import japp.model.movies.Movie;
 import japp.view.MainWindow;
 import japp.view.look.LookAndFeel;
+import japp.viewcontrol.GenreListPopulateWorker;
 
 /**
  * Top controller.
@@ -56,18 +57,19 @@ public class Controller {
 		return instance;
 	}
 
-	private void populateGenres() {
-		if(genreList == null) {
-			try {
-				this.genreList = sessionLess.fetchAllGenres();
-			} catch (NetworkException e) {
-				log.error("Could not read genres.", e);
-			}
-		}
-		mainWindow.populateGenresListPanel(genreList);
-		mainWindow.repaint("ALL GENRES");
+	public void setGenreList(GenreList genreList) {
+		this.genreList = genreList;
 	}
 
+	private void populateGenres() {
+		if(genreList == null) {
+			GenreListPopulateWorker populator = new GenreListPopulateWorker(sessionLess);
+			populator.execute();
+		} else {
+			mainWindow.populateGenresListPanel(genreList);
+			mainWindow.repaint("ALL GENRES");
+		}
+	}
 	private void populateMovies(String genreName) {
 		String genreId = genreList.getIdFromName(genreName);
 		log.debug("found id="+genreId+" from name="+genreName);

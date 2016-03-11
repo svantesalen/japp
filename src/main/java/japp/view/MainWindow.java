@@ -87,6 +87,10 @@ public class MainWindow {
 		jappTextArea.setText(movie);
 		jappTextArea.repaint(movie.getTitle());
 	}
+	
+	public void fetchingDataOngoing(boolean isFetching)  {
+		buttonPanel.fetchingDataOngoing(isFetching);
+	}
 
 	public void repaint(String borderName) {
 		jappListPanel.repaint(borderName);
