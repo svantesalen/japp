@@ -100,6 +100,7 @@ public class JappListPanel implements ListSelectionListener {
 			movies.add(movie);
 			jList.setSelectedIndex(0);
 		}
+		showSelecetedMovie();
 		jList.requestFocus();
 		populatedWithMovies=true;
 	}
@@ -212,6 +213,10 @@ public class JappListPanel implements ListSelectionListener {
 			Movie selectedMovie = movies.get(jList.getSelectedIndex());
 			Controller.getInstance().onUserActionSelectMovie(selectedMovie);
 		}
+	}
+	private void showSelecetedMovie() {
+		Movie selectedMovie = movies.get(jList.getSelectedIndex());
+		Controller.getInstance().onUserActionSelectMovie(selectedMovie);
 	}
 
 	public void repaint(String borderName) {

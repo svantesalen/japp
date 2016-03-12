@@ -85,7 +85,7 @@ public class MainWindow {
 
 	public void presentMovie(Movie movie) {
 		jappTextArea.setText(movie);
-		jappTextArea.repaint(movie.getTitle());
+		jappTextArea.repaint();
 	}
 	
 	public void fetchingDataOngoing(boolean isFetching)  {

@@ -22,13 +22,15 @@ public class MovieListPopulater extends SwingWorker<Genre, String> {
 	private static Logger log = LogManager.getLogger(MovieListPopulater.class);
 	private SessionLess sessionLess;
 	private String genreId;
+	private String genreName;
 
 	/**
 	 * CTOR. 
 	 */
-	public MovieListPopulater(SessionLess sessionLess, String genreId) {
+	public MovieListPopulater(SessionLess sessionLess, String genreId, String genreName) {
 		this.sessionLess = sessionLess;
 		this.genreId = genreId;
+		this.genreName = genreName;
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class MovieListPopulater extends SwingWorker<Genre, String> {
 		try {
 			genre = get();
 			MainWindow.getInstance().populateMoviesListPanel(genre);
-			MainWindow.getInstance().repaint("ALL GENRES");
+			MainWindow.getInstance().repaint(genreName.toUpperCase()+ " MOVIES");
 		} catch (InterruptedException | ExecutionException e) {
 			log.error("Error at fetching genres.", e);
 		}

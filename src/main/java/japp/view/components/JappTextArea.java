@@ -76,7 +76,6 @@ public class JappTextArea  {
 	public void setText(Movie movie) {
 		textPane.setText("");
 		styleWriter.writeMovie(movie);
-		repaint(movie.getTitle());
 	}
 
 	public void clear() {
@@ -98,12 +97,8 @@ public class JappTextArea  {
 		scrollPane.setBorder(emptyBorder);		
 	}
 
-
 	public void repaint() {
-		repaint(BORDER_NAME);
-	}
-	public void repaint(String borderName) {
-		border.setTitle(borderName);
+		border.setTitle(BORDER_NAME);
 		textPane.repaint();
 	}
 

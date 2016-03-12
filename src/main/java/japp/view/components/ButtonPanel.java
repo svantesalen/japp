@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,7 @@ public class ButtonPanel {
 
 	private JPanel jPanel = new JPanel();
 	private FocusableButton genresButton;
+	private JProgressBar progressBar;
 
 	/**
 	 * CTOR
@@ -46,6 +48,12 @@ public class ButtonPanel {
 		genresButton.setFont(JappTheme.buttons);
 		setBorder(genresButton);
 		jPanel.add(genresButton);
+
+		progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		progressBar.setBorderPainted(false);
+		progressBar.setVisible(false);		
+		jPanel.add(progressBar);
 	}
 
 	public void setGenresFocus() {
@@ -54,6 +62,7 @@ public class ButtonPanel {
 
 	public void fetchingDataOngoing(boolean isFetching)  {
 		genresButton.setEnabled(!isFetching);
+		progressBar.setVisible(isFetching);
 	}
 
 

@@ -82,5 +82,13 @@ public class LookAndFeel {
 		UIManager.put("OptionPane.warningDialog.titlePane.background", Colors.lighterGray);
 		UIManager.put("OptionPane.warningDialog.titlePane.foreground",  JappTheme.bgColor);
 		UIManager.put("OptionPane.warningDialog.titlePane.shadow", JappTheme.bgColor);
+
+//		border = BorderFactory.createEmptyBorder();
+//		UIManager.put("ProgressBar", border);
+		UIManager.put("ProgressBar.background", Colors.darkYellow);
+		UIManager.put("ProgressBar.foreground", Colors.blueGreen);
+		UIManager.put("ProgressBar.border", Colors.blueGreen);
+		UIManager.put("ProgressBar.selectionBackground", Colors.red);
+		UIManager.put("ProgressBar.selectionForeground", Colors.green);
 	}
 }

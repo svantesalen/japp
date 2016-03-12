@@ -62,7 +62,6 @@ public class Controller {
 	}
 
 	private void populateGenres() {
-		mainWindow.repaint("ALL GENRES");
 		if(genreList == null) {
 			GenreListPopulater populater = new GenreListPopulater(sessionLess);
 			populater.execute();
@@ -78,9 +77,8 @@ public class Controller {
 		String genreId = genreList.getIdFromName(genreName);
 		log.debug("found id="+genreId+" from name="+genreName);
 		
-		MovieListPopulater populater = new MovieListPopulater(sessionLess, genreId);
+		MovieListPopulater populater = new MovieListPopulater(sessionLess, genreId, genreName);
 		populater.execute();
-		mainWindow.repaint(genreName.toUpperCase()+ " MOVIES");
 		
 		if(showHint) {
 			JOptionPane.showMessageDialog(null, "View movie contents by selecting a movie", "INFO", JOptionPane.INFORMATION_MESSAGE);
