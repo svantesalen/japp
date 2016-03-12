@@ -10,12 +10,12 @@ import org.apache.logging.log4j.Logger;
 import japp.control.network.Session;
 import japp.control.network.SessionLess;
 import japp.control.network.exceptions.NetworkException;
-import japp.model.movies.Genre;
 import japp.model.movies.GenreList;
 import japp.model.movies.Movie;
 import japp.view.MainWindow;
 import japp.view.look.LookAndFeel;
-import japp.viewcontrol.GenreListPopulateWorker;
+import japp.workerthreads.GenreListPopulater;
+import japp.workerthreads.MovieListPopulater;
 
 /**
  * Top controller.
@@ -62,26 +62,26 @@ public class Controller {
 	}
 
 	private void populateGenres() {
+		mainWindow.repaint("ALL GENRES");
 		if(genreList == null) {
-			GenreListPopulateWorker populator = new GenreListPopulateWorker(sessionLess);
-			populator.execute();
+			GenreListPopulater populater = new GenreListPopulater(sessionLess);
+			populater.execute();
 		} else {
 			mainWindow.populateGenresListPanel(genreList);
-			mainWindow.repaint("ALL GENRES");
 		}
 	}
-	private void populateMovies(String genreName) {
-		String genreId = genreList.getIdFromName(genreName);
-		log.debug("found id="+genreId+" from name="+genreName);
-		Genre genre;
-		try {
-			genre = sessionLess.fetchMoviesInGenre(genreId);
-			mainWindow.populateMoviesListPanel(genre);
-			mainWindow.repaint(genreName.toUpperCase()+ " MOVIES");
-		} catch (NetworkException e) {
-			log.error("Failed to fetch data for genre: name="+genreName+", id="+genreId, e);
+	
+	private void populateMovies(String genreName) { 
+		if(genreName == null) {
 			return;
 		}
+		String genreId = genreList.getIdFromName(genreName);
+		log.debug("found id="+genreId+" from name="+genreName);
+		
+		MovieListPopulater populater = new MovieListPopulater(sessionLess, genreId);
+		populater.execute();
+		mainWindow.repaint(genreName.toUpperCase()+ " MOVIES");
+		
 		if(showHint) {
 			JOptionPane.showMessageDialog(null, "View movie contents by selecting a movie", "INFO", JOptionPane.INFORMATION_MESSAGE);
 			showHint = false;

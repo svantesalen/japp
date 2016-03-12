@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -124,7 +126,7 @@ public class JappListPanel implements ListSelectionListener {
 	 */
 	@SuppressWarnings("serial")
 	private ListCellRenderer<? super String> getRenderer() {
-		return new DefaultListCellRenderer() { 
+		return new DefaultListCellRenderer() {  // NOSONAR
 			@Override
 			public Component getListCellRendererComponent(
 					JList<?> list,
@@ -152,20 +154,39 @@ public class JappListPanel implements ListSelectionListener {
 		jPanel.setBorder(border);
 	}
 
+	/**
+	 * List items can be selected by pressing RETURN or by double-click.
+	 */
 	private void addListeners() {
+		// RETURN?
 		jList.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased( KeyEvent e ) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					handleUserSelection();
+				}
+			}
 			@Override
 			public void keyTyped( KeyEvent e ) {/* EMPTY */}
 			@Override
 			public void keyPressed( KeyEvent e ) {/* EMPTY */}
-			@Override
-			public void keyReleased( KeyEvent e ) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER && !populatedWithMovies) {
-					Controller.getInstance().onUserActionSelectGenre(selectedValue);						
-				}
-			}
-
 		} );
+
+		// Double-click?
+		jList.addMouseListener(new MouseAdapter(){ // NOSONAR
+		    @Override
+		    public void mouseClicked(MouseEvent e){
+		        if(e.getClickCount()==2){
+					handleUserSelection();
+		        }
+		    }
+		});
+	}
+	
+	private void handleUserSelection() {
+		if(!populatedWithMovies) {
+			Controller.getInstance().onUserActionSelectGenre(selectedValue);						
+		}
 	}
 
 	public JPanel getPanel() {
@@ -197,7 +218,6 @@ public class JappListPanel implements ListSelectionListener {
 		border.setTitle(borderName);
 		jPanel.repaint();
 	}
-
 }
 
 

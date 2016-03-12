@@ -1,4 +1,4 @@
-package japp.viewcontrol;
+package japp.workerthreads;
 
 import java.util.concurrent.ExecutionException;
 
@@ -19,14 +19,14 @@ import japp.view.MainWindow;
  * @author svante
  *
  */
-public class GenreListPopulateWorker extends SwingWorker<GenreList, String> {
-	private static Logger log = LogManager.getLogger(GenreListPopulateWorker.class);
+public class GenreListPopulater extends SwingWorker<GenreList, String> {
+	private static Logger log = LogManager.getLogger(GenreListPopulater.class);
 	private SessionLess sessionLess;
 
 	/**
 	 * CTOR. 
 	 */
-	public GenreListPopulateWorker(SessionLess sessionLess) {
+	public GenreListPopulater(SessionLess sessionLess) {
 		this.sessionLess = sessionLess;
 	}
 
@@ -37,7 +37,7 @@ public class GenreListPopulateWorker extends SwingWorker<GenreList, String> {
 	}
 
 	/**
-	 * Receive the return value from {@link GenreListPopulateWorker#doInBackground()}
+	 * Receive the return value from {@link GenreListPopulater#doInBackground()}
 	 */
 	@Override
 	protected void done() {
