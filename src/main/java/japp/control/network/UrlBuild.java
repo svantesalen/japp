@@ -11,13 +11,14 @@ public class UrlBuild {
 	public static final String HOST_URL = HOST_DEBUG_URL;
 	//	public static final String HOST_URL = HOST_PRODUCTION_URL; // NOSONAR
 	public static final String HOST_FOR_USER_LOGIN_VERIFICATION_URL = "https://www.themoviedb.org/authenticate/";
+	public static final String HOST_FOR_POSTER = "http://image.tmdb.org/t/p/";
 
 	/**
 	 * The API key has to be manually replaced if another TMDb account is used.
 	 */
 	public static final String API_KEY = "8c92bdaa90b74ce495f535d3bb9849bb";
 	public static final String API_KEY_PARAM = "?api_key=8c92bdaa90b74ce495f535d3bb9849bb";
-	
+
 	/**
 	 * Holds some keys for a key-value pair need when building an url.
 	 * @author svante
@@ -29,7 +30,7 @@ public class UrlBuild {
 		INCLUDE_ALL_MOVIES("include_all_movies"),
 		INCLUDE_ADULT("include_adult"),
 		PAGE("page");
-		
+
 		String key;
 		Attribute(String key) {
 			this.key = key;
@@ -42,7 +43,7 @@ public class UrlBuild {
 			return name();
 		}
 	} 
-	
+
 	/**
 	 * Build a URL for a given path, with or without ID.
 	 * @author svante
@@ -54,7 +55,6 @@ public class UrlBuild {
 		GENRE_LIST("genre/movie/list"),
 		GENRE("genre/","/movies"),
 		MOVIE("movie/", "");
-		
 		private String relativePath;
 		private String relativePath2;
 		private Paths(String relativePath) {
@@ -81,7 +81,7 @@ public class UrlBuild {
 		public String buildUrl(String id) {
 			return HOST_URL+relativePath+id+relativePath2+API_KEY_PARAM;			
 		}
-		
+
 		/**
 		 * Build a url string containing parameter (key value pairs)
 		 * @param key
@@ -91,13 +91,39 @@ public class UrlBuild {
 		public String buildUrl(String key, String value) {
 			return HOST_URL+relativePath+API_KEY_PARAM+"&"+key+"="+value;
 		}
-		
+
 		@Override
 		public String toString() {
 			return name();
 		}
 	}
-	
+
+	/**
+	 * Available poster widths. This data may not always be valid (can be changed by TMDB). 
+	 * For a better implementation fetch config data from TMDB.
+	 * 
+	 * @author svante
+	 *
+	 */
+	public enum PosterPath {
+		w92,		// NOSONAR - keep small to avoid toLoweCase at buildUrl.
+		w154,		// NOSONAR
+		w185,		// NOSONAR
+		w342,		// NOSONAR
+		w500,		// NOSONAR
+		w780,		// NOSONAR
+		original; 	// NOSONAR
+		
+		/**
+		 * 
+		 * @param imageRelativePath must start with "/"
+		 * @return
+		 */
+		public String buildUrl(String imageRelativePath) {
+			return HOST_FOR_POSTER+this.name()+imageRelativePath;
+		}
+	}
+
 	private UrlBuild() {/* empty */}
 
 	/**

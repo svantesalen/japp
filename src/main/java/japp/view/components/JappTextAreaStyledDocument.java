@@ -1,5 +1,8 @@
 package japp.view.components;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -91,6 +94,20 @@ public class JappTextAreaStyledDocument {
 
 	}
 
+	public void insertImage(Image image) {
+		if(image == null) {
+	    	log.error("No image.");
+			return;
+		}
+	    try {
+	        Style style = doc.addStyle("imageStyle", null);
+	        StyleConstants.setIcon(style, new ImageIcon(image));
+	        doc.insertString(doc.getLength(), "ignored text", style);
+	    } catch (Exception e){
+	    	log.error("Could not load image.", e);
+	    }
+		}
+	
 	public void insertTitleText(String text) {
 		insertStyledText(text, titleStyle);
 	}

@@ -20,10 +20,10 @@ public class JappTheme {
 	public static final Font jListFont = new Font(getDefaultFontName(), Font.PLAIN, 16);
 	public static final Font borderTitleFont = new Font(getDefaultFontName(), Font.PLAIN, 13);
 	
-	public static final Color textAreaTitleColor = Colors.lighterOrange;
-	public static final Color textAreaOverviewColor = Colors.lightYellow;
+	public static final Color textAreaTitleColor = Colors.white;
+	public static final Color textAreaOverviewColor = Colors.white;
 	public static final Color textAreaTaglineColor = Colors.green;
-	public static final Color textAreaInfoColor = Colors.white;
+	public static final Color textAreaInfoColor = Colors.lightGray;
 
 	public static final Color button_txt = Colors.white;
 	public static final Color bgColor = Colors.blueGreen;

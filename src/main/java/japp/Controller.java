@@ -10,12 +10,14 @@ import org.apache.logging.log4j.Logger;
 import japp.control.network.Session;
 import japp.control.network.SessionLess;
 import japp.control.network.exceptions.NetworkException;
+import japp.model.movies.Genre;
 import japp.model.movies.GenreList;
 import japp.model.movies.Movie;
 import japp.view.MainWindow;
 import japp.view.look.LookAndFeel;
 import japp.workerthreads.GenreListPopulater;
 import japp.workerthreads.MovieListPopulater;
+import japp.workerthreads.PostersFetcher;
 
 /**
  * Top controller.
@@ -47,7 +49,7 @@ public class Controller {
 
 	public static void start() {
 		instance = new Controller();		
-		JOptionPane.showMessageDialog(null, "View a genres contents by pressing \nRETURN when genre is selected", "INFO", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "View a genres contents by double-click or\npressing RETURN when genre is selected", "INFO", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public static Controller getInstance() {
@@ -85,8 +87,13 @@ public class Controller {
 			showHint = false;
 		}
 	}
+	
+	public void fetchAllPosters(Genre genre) {
+		PostersFetcher postersFetcher = new PostersFetcher(sessionLess, genre);
+		postersFetcher.execute();
+	}
 
-	// TODO: authenticate not used right now, but it works.
+	// TODO: authenticate works but is not used
 	/**
 	 * Authenticate. For some parts of the TMDb API you need a session ID. 
 	 * @return Session containing session ID.

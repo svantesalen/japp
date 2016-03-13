@@ -19,15 +19,22 @@ public class StyleWriter {
 	}
 
 	/**
-	 * Write movie details.
+	 * Write movie header
 	 * @param movie 
-	 */
+	 */	
 	public void writeMovie(Movie movie) {
 		textArea.initiateContents();
 		styledDoc.insertInfoText("\n");
 		styledDoc.insertTitleText(movie.getTitle());
 		styledDoc.insertInfoText("\n");
+		styledDoc.insertInfoText("\n");
 		styledDoc.insertOverviewText(movie.getOverview());
+		styledDoc.insertInfoText("\n");
+		styledDoc.insertInfoText("\n");
+		styledDoc.insertInfoText("\n");
+		if(movie.getPoster() != null) {
+			styledDoc.insertImage(movie.getPoster());
+		}
 		styledDoc.insertInfoText("\n");
 		styledDoc.insertInfoText(movie.getTagline());
 		styledDoc.insertInfoText("\n");
@@ -42,6 +49,6 @@ public class StyleWriter {
 		styledDoc.insertInfoText("\n");
 		styledDoc.insertInfoText("ID: "+movie.getId());
 		styledDoc.insertInfoText("\n");
-		textArea.setCaretTopOfDoc();
 	}
+
 }

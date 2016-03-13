@@ -1,5 +1,6 @@
 package japp.model.movies;
 
+import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -73,13 +74,10 @@ public class Movie {
 		private String getKey() {
 			return key;
 		}
-
-		public String getValue(String jsonString) {
-			return JsonHelper.getValue(key, jsonString);
-		}
 	}
-	
+
 	private Map<String, String> details = new HashMap<>();
+	private Image poster;
 
 	/**
 	 * CTOR
@@ -92,12 +90,24 @@ public class Movie {
 		}
 	}
 
+	public void setPoster(Image poster) {
+		this.poster = poster;
+	}
+
+	public Image getPoster() {
+		return poster;
+	}
+
 	public String getId() {
 		return details.get(Keys.ID.getKey());
 	}
 
 	public String getTitle() {
 		return details.get(Keys.TITLE.getKey());
+	}
+
+	public String getPosterPath() {
+		return details.get(Keys.POSTER_PATH.getKey());
 	}
 
 	public String getTagline() {
@@ -127,7 +137,7 @@ public class Movie {
 		sb.append(details.get(Keys.VOTE_COUNT.getKey()));
 		return sb.toString();
 	}
-	
+
 	public String getShortInfo() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getReleaseYear());
@@ -135,7 +145,7 @@ public class Movie {
 		sb.append(details.get(Keys.TITLE.getKey()));
 		return sb.toString();
 	}
-	
+
 	private String getReleaseYear() {
 		String date = details.get(Keys.RELEASE_DATE.getKey());
 		if(date.isEmpty()) {
@@ -143,6 +153,7 @@ public class Movie {
 		}
 		return date.substring(0, 4);
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

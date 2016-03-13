@@ -41,7 +41,6 @@ public class Genre {
 		private String getKey() {
 			return key;
 		}
-
 	}
 
 	private String id;

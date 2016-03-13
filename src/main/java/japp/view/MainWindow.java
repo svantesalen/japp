@@ -28,11 +28,10 @@ public class MainWindow {
 	private static MainWindow instance;
 	private static Logger log = LogManager.getLogger(MainWindow.class);
 
+	private JFrame mainFrame;
 	private JappTextArea  jappTextArea = new JappTextArea();
 	private JappListPanel jappListPanel = new JappListPanel();
 	private ButtonPanel buttonPanel =  new ButtonPanel();
-
-	private JFrame mainFrame;
 
 	private MainWindow() {
 		setup(); 
@@ -56,7 +55,7 @@ public class MainWindow {
 
 		mainFrame = new JFrame();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setPreferredSize(new Dimension(1000,710));
+		mainFrame.setPreferredSize(new Dimension(1000,1000));
 		mainFrame.add(contentPane);
 		mainFrame.setContentPane(contentPane);
 		mainFrame.pack();
@@ -84,7 +83,7 @@ public class MainWindow {
 	}
 
 	public void presentMovie(Movie movie) {
-		jappTextArea.setText(movie);
+		jappTextArea.setMovie(movie);
 		jappTextArea.repaint();
 	}
 	
@@ -92,9 +91,10 @@ public class MainWindow {
 		buttonPanel.fetchingDataOngoing(isFetching);
 	}
 
+
 	public void repaint(String borderName) {
 		jappListPanel.repaint(borderName);
 		jappTextArea.repaint();
 	}
-	
+
 }

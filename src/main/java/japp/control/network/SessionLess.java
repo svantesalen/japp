@@ -1,10 +1,20 @@
 package japp.control.network;
 
+import java.awt.Image;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import japp.control.network.UrlBuild.Attribute;
 import japp.control.network.UrlBuild.Paths;
+import japp.control.network.UrlBuild.PosterPath;
 import japp.control.network.exceptions.NetworkException;
 import japp.model.movies.Genre;
 import japp.model.movies.GenreList;
+import japp.model.movies.Movie;
 
 /**
  * Handles the server interaction for session-less requests.
@@ -12,6 +22,8 @@ import japp.model.movies.GenreList;
  *
  */
 public class SessionLess {
+
+	private  static Logger log = LogManager.getLogger(SessionLess.class);
 
 	/**
 	 * Get a list of all genres.
@@ -56,6 +68,17 @@ public class SessionLess {
 		String jsonString = HttpCommunicator.send(requestUrl);
 		return new Genre(jsonString);
 	}
+	
+	public Image fetchPoster(Movie movie) throws NetworkException {
+		String requestUrl = PosterPath.w342.buildUrl(movie.getPosterPath());
+	    try {
+	        return ImageIO.read(new URL(requestUrl));
+	    } catch (Exception e){
+	    	log.error("Could not load image:"+requestUrl, e);
+	    	return null;
+	    }
+	}
+
 }
 
 

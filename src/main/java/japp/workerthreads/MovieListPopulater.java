@@ -7,6 +7,7 @@ import javax.swing.SwingWorker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import japp.Controller;
 import japp.control.network.SessionLess;
 import japp.control.network.exceptions.NetworkException;
 import japp.model.movies.Genre;
@@ -49,10 +50,16 @@ public class MovieListPopulater extends SwingWorker<Genre, String> {
 		Genre genre;
 		try {
 			genre = get();
+			fetchAllPosters(genre);
+			Controller.getInstance().fetchAllPosters(genre);
 			MainWindow.getInstance().populateMoviesListPanel(genre);
 			MainWindow.getInstance().repaint(genreName.toUpperCase()+ " MOVIES");
 		} catch (InterruptedException | ExecutionException e) {
 			log.error("Error at fetching genres.", e);
 		}
 	}	
+	private void fetchAllPosters(Genre genre) {
+		PostersFetcher postersFetcher = new PostersFetcher(sessionLess, genre);
+		postersFetcher.execute();
+	}
 }

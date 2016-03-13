@@ -25,7 +25,7 @@ import japp.view.look.JappTheme;
  */
 public class JappTextArea  {
 	private static Logger log = LogManager.getLogger(JappTextArea.class);
-	
+
 	private static final String BORDER_NAME = "DETAILS";
 	private static JappTextArea instance;
 	private JTextPane textPane  = new JTextPane();
@@ -73,7 +73,7 @@ public class JappTextArea  {
 		styleWriter = new StyleWriter(this, styledDoc);
 	}
 
-	public void setText(Movie movie) {
+	public void setMovie(Movie movie) {
 		textPane.setText("");
 		styleWriter.writeMovie(movie);
 	}
@@ -82,7 +82,7 @@ public class JappTextArea  {
 		textPane.setText(" ");		
 		textPane.setText("");		
 	}
-	
+
 	public String getText() {
 		return textPane.getText();
 	}
