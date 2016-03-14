@@ -5,7 +5,102 @@
 	<artifactId>japp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Japp</name>
+
 	<description>Testing the TMDb API</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<app.main.class>japp.MainClass</app.main.class>
+		<maven.compile.java.version>1.8</maven.compile.java.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<version>3.1</version>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${maven.compile.java.version}</source>
+					<target>${maven.compile.java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeScope>system</excludeScope>
+							<excludeGroupIds>
+								junit
+							</excludeGroupIds>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>package-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${env.JAVA_HOME}/bin/javapackager</executable>
+							<arguments>
+								<argument>-createjar</argument>
+								<argument>-appclass</argument>
+								<argument>${app.main.class}</argument>
+								<argument>-srcdir</argument>
+								<argument>${project.build.directory}/classes</argument>
+								<argument>-outdir</argument>
+								<argument>./target</argument>
+								<argument>-outfile</argument>
+								<argument>${project.artifactId}-app</argument>
+								<argument>-v</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>package-jar2</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${env.JAVA_HOME}/bin/javapackager</executable>
+							<!-- http://docs.oracle.com/javase/8/docs/technotes/tools/unix/javapackager.html -->
+							<arguments>
+								<argument>-deploy</argument>
+								<argument>-native</argument>
+								<argument>installer</argument>
+								<argument>-appclass</argument>
+								<argument>${app.main.class}</argument>
+								<argument>-srcfiles</argument>
+								<argument>${project.build.directory}/${artifactId}-app.jar</argument>
+								<argument>-outdir</argument>
+								<argument>./target</argument>
+								<argument>-outfile</argument>
+								<argument>${project.artifactId}-app</argument>
+								<argument>-v</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -41,40 +136,22 @@
 		</dependency>
 	</dependencies>
 
-	<!-- 
-	The maven-dependency-plugin contains the goal “unpack-dependencies”. 
-	We can use this goal to enhance the default “target/classes” folder with all the dependencies you need to run your application. 
-	We assume that the default maven build creates all classes of your project in the “target/classes” folder and the “unpack-dependencies” plugin copies all the project dependencies to this folder. 
-	
-	The result is a valid input for the javapackager tool, which creates the executable.  
-	-->
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.6</version>
-					<executions>
-						<execution>
-							<id>unpack-dependencies</id>
-							<phase>package</phase>
-							<goals>
-								<goal>unpack-dependencies</goal>
-							</goals>
-							<configuration>
-								<excludeScope>system</excludeScope>
-								<excludeGroupIds>
-									org.springframework.jmx
-								</excludeGroupIds>
-								<outputDirectory>
-									${project.build.directory}/classes
-								</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+	<url>https://github.com/svantesalen/japp</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>svantesalen</id>
+			<name>Svante Salén</name>
+			<email>svante.salen@gmail.com</email>
+		</developer>
+	</developers>
+
 </project>
 
