@@ -1,10 +1,10 @@
 japp/control/network/SessionLess.class
 japp/view/components/FocusableButton$1.class
-japp/MainClass.class
 japp/view/components/JappListPanel$2.class
 japp/control/network/HttpBrowserController.class
 japp/view/look/Colors.class
 japp/Controller.class
+japp/Japp.class
 japp/view/components/ButtonPanel.class
 japp/model/movies/Genre$Keys.class
 japp/control/network/UrlBuild$PosterPath.class

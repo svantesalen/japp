@@ -4,9 +4,9 @@
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/control/network/exceptions/AuthenticationException.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/view/look/Colors.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/view/components/ButtonPanel.java
-/home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/MainClass.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/workerthreads/GenreListPopulater.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/workerthreads/PostersFetcher.java
+/home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/Japp.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/model/movies/Genre.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/control/network/exceptions/NetworkException.java
 /home/svante/java/javacode/workspace_ee/japp/src/main/java/japp/Controller.java
